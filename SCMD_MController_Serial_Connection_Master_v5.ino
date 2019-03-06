@@ -50,7 +50,7 @@ SerialUSB.begin(9600); // Initialize hardware serial port, pins 0/1
 while (!SerialUSB) ; // Wait for Serial monitor to open
 
 //  Send a welcome message to the serial monitor:
-//  Serial.println("Starting sketch.");
+  SerialUSB.println("Starting sketch.");
   pinMode(8, INPUT_PULLUP);
   //***** Configure the Motor Driver's Settings *****//
 
@@ -94,48 +94,48 @@ while (!SerialUSB) ; // Wait for Serial monitor to open
   uint8_t tempReturnValue9 = myMotorDriver9.begin();
 //  uint8_t tempReturnValue10 = myMotorDriver10.begin();
  while ( tempReturnValue1 != 0xA9){
-//  {    SerialUSB.print( "ID1 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue1, HEX );
+      SerialUSB.print( "ID1 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue1, HEX );
   tempReturnValue1 = myMotorDriver1.begin();}
 //
    while ( tempReturnValue2 != 0xA9){
-//          SerialUSB.print( "\n ID2 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue2, HEX );
+          SerialUSB.print( "\n ID2 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue2, HEX );
   tempReturnValue2 = myMotorDriver2.begin();}
 
    while ( tempReturnValue3 != 0xA9){
-//           SerialUSB.print( "\n ID3 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue3, HEX );
+           SerialUSB.print( "\n ID3 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue3, HEX );
   tempReturnValue3 = myMotorDriver3.begin();}
   
    while ( tempReturnValue4 != 0xA9){
-//       SerialUSB.print( "\n ID4 mismatch, read as 0x" );
-//   SerialUSB.println( tempReturnValue4, HEX );
+       SerialUSB.print( "\n ID4 mismatch, read as 0x" );
+   SerialUSB.println( tempReturnValue4, HEX );
    tempReturnValue4 = myMotorDriver4.begin();}
 
    while ( tempReturnValue5 != 0xA9){
-//        SerialUSB.print( "\n ID5 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue5, HEX );
+        SerialUSB.print( "\n ID5 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue5, HEX );
    tempReturnValue5 = myMotorDriver5.begin();}
 
       while ( tempReturnValue6 != 0xA9){
-//         SerialUSB.print( "\n ID6 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue6, HEX );
+         SerialUSB.print( "\n ID6 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue6, HEX );
    tempReturnValue6 = myMotorDriver6.begin();}
 
       while ( tempReturnValue7 != 0xA9){
-//    SerialUSB.print( "\n ID7 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue7, HEX );
+    SerialUSB.print( "\n ID7 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue7, HEX );
    tempReturnValue7 = myMotorDriver7.begin();}
 
       while ( tempReturnValue8 != 0xA9){
-//    SerialUSB.print( "\n ID8 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue8, HEX );
+    SerialUSB.print( "\n ID8 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue8, HEX );
    tempReturnValue8 = myMotorDriver8.begin();}
 
       while ( tempReturnValue9 != 0xA9){
-//    SerialUSB.print( "\n ID9 mismatch, read as 0x" );
-//    SerialUSB.println( tempReturnValue9, HEX );
+    SerialUSB.print( "\n ID9 mismatch, read as 0x" );
+    SerialUSB.println( tempReturnValue9, HEX );
    tempReturnValue9 = myMotorDriver9.begin();}
 
 
@@ -148,7 +148,7 @@ while (!SerialUSB) ; // Wait for Serial monitor to open
 
   delay(500);
   
-//  SerialUSB.println( "\n IDs matche 0xA9" );
+  SerialUSB.println( "\n IDs matche 0xA9" );
 
 //  SerialUSB.print("Waiting for enumeration...");
 //  while ( myMotorDriver1.ready() == false );
@@ -230,14 +230,26 @@ SerialUSB.print("Ready");
 
 
 
-
+int sens;
 void loop()
 {
+//handleSerial();
+  
+for (int i=1;i<10;i++)
+{
+      SerialUSB.print("\n robot: ");
+    SerialUSB.println(i);
+  sens = pot(i);
+  while (sens<502||sens>522){
+    sens = pot(i);
 
-handleSerial();
+    SerialUSB.println(sens);
+         SerialUSB.print("\n");
+  delay(100);
+}
 }
 
-
+}
 
 
 
@@ -446,4 +458,3 @@ angle[i]=pot(i)-512;
     }
   }
 }
-
